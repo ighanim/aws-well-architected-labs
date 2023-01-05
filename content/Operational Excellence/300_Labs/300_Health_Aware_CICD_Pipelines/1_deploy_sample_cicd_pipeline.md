@@ -29,7 +29,7 @@ In this step you will provision a [CloudFormation](https://aws.amazon.com/cloudf
 
 1. Click on the link below to deploy the stack. This will take you to the CloudFormation console in your account. Use `health-aware-pipeline` as the stack name, and take the default values for all options:
 
-[Deploy CloudFormation template in ap-southeast-2](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/create/review?stackName=health-aware-pipeline&templateURL=https://aws-well-architected-labs-singapore.s3.ap-southeast-1.amazonaws.com/Operations/300_Health_Aware_CICD_Pipelines/Code/deployment.yml)
+[Deploy CloudFormation template in ap-southeast-2](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/create/review?stackName=health-aware-pipeline&templateURL=https://aws-walab-health-aware-cicd-pipelines-2023.s3.ap-southeast-2.amazonaws.com/deployment.yml)
 
 2. Once the template is deployed, wait until the CloudFormation stack reaches the **CREATE_COMPLETE** state.
 
