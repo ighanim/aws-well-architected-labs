@@ -1,0 +1,168 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "CloudFormation template that deploys necessary infrastructure for Lab01"
+
+Resources:
+
+  s3BucketHealthDemo:
+    Type: AWS::S3::Bucket
+    Properties: 
+      VersioningConfiguration:
+        Status: Enabled
+      Tags: 
+        - Key: service
+          Value: "HealthPipelineDemo"
+
+  PipelineExecutionRole:
+    Type: AWS::IAM::Role
+    Properties: 
+      Description: IAM Role assumed by CodePipeline. 
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - codepipeline.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies: 
+        - PolicyName: codepipeline-execution-policy-health-pipeline-demo
+          PolicyDocument:
+            {
+            "Statement": 
+            [
+                {
+                    "Action": [
+                        "iam:PassRole"
+                    ],
+                    "Resource": "*",
+                    "Effect": "Allow",
+                    "Condition": {
+                        "StringEqualsIfExists": {
+                            "iam:PassedToService": [
+                                "cloudformation.amazonaws.com"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "Action": [
+                        "cloudwatch:*",
+                        "s3:*",
+                        "cloudformation:*"
+                    ],
+                    "Resource": "*",
+                    "Effect": "Allow"
+                },
+                {
+                    "Action": [
+                        "lambda:InvokeFunction",
+                        "lambda:ListFunctions"
+                    ],
+                    "Resource": "*",
+                    "Effect": "Allow"
+                },
+                {
+                    "Action": [
+                        "cloudformation:CreateStack",
+                        "cloudformation:DeleteStack",
+                        "cloudformation:DescribeStacks",
+                        "cloudformation:UpdateStack",
+                        "cloudformation:CreateChangeSet",
+                        "cloudformation:DeleteChangeSet",
+                        "cloudformation:DescribeChangeSet",
+                        "cloudformation:ExecuteChangeSet",
+                        "cloudformation:SetStackPolicy",
+                        "cloudformation:ValidateTemplate"
+                    ],
+                    "Resource": "*",
+                    "Effect": "Allow"
+                },
+                {
+                    "Effect": "Allow",
+                    "Action": [
+                        "cloudformation:ValidateTemplate"
+                    ],
+                    "Resource": "*"
+                }
+            ],
+            "Version": "2012-10-17"
+            }   
+      RoleName: codepipeline-execution-role-health-pipeline-demo
+      Tags: 
+        - Key: service
+          Value: "HealthPipelineDemo"
+
+  HealthPipelineDemo:
+    Type: AWS::CodePipeline::Pipeline
+    Properties: 
+      Name: health-aware-cicd-pipelines-lab
+      RoleArn: !GetAtt PipelineExecutionRole.Arn
+      ArtifactStore:
+        Type: S3
+        Location: !Ref s3BucketHealthDemo
+      Stages:
+      - Name: Source
+        Actions:
+        - Name: download-from-s3
+          ActionTypeId:
+            Category: Source
+            Owner: AWS
+            Provider: S3
+            Version: '1'
+          RunOrder: 1
+          Configuration:
+            PollForSourceChanges: 'false'
+            S3Bucket: !Ref s3BucketHealthDemo
+            S3ObjectKey: file-to-edit
+          OutputArtifacts:
+          - Name: file-to-edit
+          InputArtifacts: []
+          Region: ap-southeast-2
+      - Name: aws-health-check
+        Actions:
+        - Name: any-active-incident
+          ActionTypeId:
+            Category: Invoke
+            Owner: AWS
+            Provider: Lambda
+            Version: '1'
+          RunOrder: 1
+          Configuration:
+            FunctionName: service-validate-aws-health
+            UserParameters: ap-southeast-2,us-east-1
+          OutputArtifacts:
+          - Name: awsHealthOutputArtifact
+          InputArtifacts:
+          - Name: file-to-edit
+          Region: ap-southeast-2
+      - Name: manual-approval
+        Actions:
+        - Name: proceed-with-deployment
+          ActionTypeId:
+            Category: Approval
+            Owner: AWS
+            Provider: Manual
+            Version: '1'
+          RunOrder: 1
+          Configuration: {}
+          OutputArtifacts: []
+          InputArtifacts: []
+          Region: ap-southeast-2
+      - Name: Deploy
+        Actions:
+        - Name: upload-to-s3
+          ActionTypeId:
+            Category: Deploy
+            Owner: AWS
+            Provider: S3
+            Version: '1'
+          RunOrder: 1
+          Configuration:
+            BucketName: !Ref s3BucketHealthDemo
+            Extract: 'false'
+            ObjectKey: output/file-to-edit
+          OutputArtifacts: []
+          InputArtifacts:
+          - Name: file-to-edit
+          Region: ap-southeast-2

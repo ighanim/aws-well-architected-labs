@@ -12,7 +12,6 @@ hidden: false
 
 ## Contributors
 * **Jerry Chen**, Well-Architected Solutions Architect.
-* **Jang Whan Han**, Well-Architected Geo Solutions Architect.
 
 ## Introduction
 
@@ -30,7 +29,7 @@ In this lab, I will walk you through how to embed AWS Health API insights into y
 
 ## Goals: 
 
-* Build a solution that automatically checks for AWS region health with new deployments. 
+* Build a solution that automatically evaluates an AWS region health with new deployments. 
 * Simulate a regional health impairment and verify the solution behaviour. 
 * Integrate the solution with a ChatOps channel. 
 
@@ -48,7 +47,7 @@ In this lab, I will walk you through how to embed AWS Health API insights into y
 NOTE: You will be billed for any applicable AWS resources used if you complete this lab that are not covered in the [AWS Free Tier](https://aws.amazon.com/free/).
 {{% /notice %}}
 
-{{< prev_next_button link_next_url="./1_deploy_base_application_environment/" button_next_text="Start Lab" first_step="true" />}}
+{{< prev_next_button link_next_url="./1_deploy_sample_cicd_pipeline/" button_next_text="Start Lab" first_step="true" />}}
 
 Steps:
 {{% children  /%}}
