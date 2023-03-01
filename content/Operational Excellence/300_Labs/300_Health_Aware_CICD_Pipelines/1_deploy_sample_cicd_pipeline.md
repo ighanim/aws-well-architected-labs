@@ -27,7 +27,7 @@ The CodePipeline flow consists of three steps:
 
 In this step you will provision a [CloudFormation](https://aws.amazon.com/cloudformation/) stack that builds the AWS CodePipeline workflow as well as an empty S3 bucket. In this lab, we will deploy infrastructure in the Sydney region (`ap-southeast-2`).
 
-1. Click on the link below to deploy the stack. This will take you to the CloudFormation console in your account. Use `health-aware-pipeline` as the stack name, and take the default values for all options:
+1. Click on the link below to deploy the stack. This will take you to the CloudFormation console in your account. Use `health-aware-pipeline` as the stack name, and take the default values for all options (estimated deployment time is 2 minutes):
 
 [Deploy CloudFormation template in ap-southeast-2](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/create/review?stackName=health-aware-pipeline&templateURL=https://aws-walab-health-aware-cicd-pipelines-2023.s3.ap-southeast-2.amazonaws.com/deployment.yml)
 
@@ -43,9 +43,22 @@ In this step you will provision a [CloudFormation](https://aws.amazon.com/cloudf
 * An S3 bucket named `health-aware-pipeline-s3buckethealthdemo-<RANDOM_NUMBER>`. This is where the source object (`file-to-edit`) will be uploaded.
 * An IAM Role named `health-aware-pipeline-PipelineExecutionRole-<RANDOM_NUMBER>` that will be assumed by the AWS CodePipeline workflow to call AWS services on your behalf. 
 
+### 2. Upload the sample file `file-to-edit` to S3
+
+To verify that the deployment in step 1 is valid, you will have to create a sample source file (`file-to-edit`) and upload to the S3 bucket created in the previous step. This file can be an empty file or you may use [this sample file](/Operations/300_Health_Aware_CICD_Pipelines/Code/file-to-edit).
+
+* Open the [AWS S3 console](https://s3.console.aws.amazon.com/s3/buckets) and select the newly created bucket.
+* In the **Objects** tab, click the **Upload** button.
+
+![S3 Bucket Click Upload ](/Operations/300_Health_Aware_CICD_Pipelines/Images/s3-upload.png)
+
+* In the **Upload** screen, click **Add files** and select `file-to-add` from your local storage. Finally, click **Upload**.
+
+![S3 Bucket Click Add files ](/Operations/300_Health_Aware_CICD_Pipelines/Images/s3-addfiles.png)
+
 ### 2. Test the AWS CodePipeline workflow
 
-To verify that the deployment in step 1 is valid, you will have to create a sample source file (`file-to-edit`) and upload to the S3 bucket created in the previous step. Once uploaded, go to the AWS CodePipeline console and click the "Release Change" button.
+In this step, we will validate a successful pipeline execution. Go to the [AWS CodePipeline console](https://ap-southeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines?region=ap-southeast-2) and click the "Release Change" button.
 
 ![CodePipeline release change ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-release-change.png)
 

@@ -13,6 +13,12 @@ hidden: false
 ## Contributors
 * **Jerry Chen**, Well-Architected Solutions Architect.
 
+## Well-Architected Best Practices
+This lab helps you to exercise the following Well-Architected Best Practices in your operations change process:
+
+* [OPS06-BP01](https://docs.aws.amazon.com/wellarchitected/latest/framework/ops_mit_deploy_risks_plan_for_unsucessful_changes.html) Plan for unsuccessful changes
+
+
 ## Introduction
 
 > Everything fails all the time — Werner Vogels, AWS CTO

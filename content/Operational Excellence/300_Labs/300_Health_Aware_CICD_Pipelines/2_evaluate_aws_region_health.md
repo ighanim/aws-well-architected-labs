@@ -26,6 +26,8 @@ First, create an IAM Role that allows the Lambda function to access the AWS Heal
 
 a. In the [IAM Policy Console](https://us-east-1.console.aws.amazon.com/iam/home#/policies$new?step=edit), click on the **"JSON"** tab and then copy the following policy document:
 
+![Create IAM policy ](/Operations/300_Health_Aware_CICD_Pipelines/Images/iam-policy-1.png)
+
 ```
 {
   "Version": "2012-10-17", 
@@ -56,6 +58,14 @@ a. In the [IAM Policy Console](https://us-east-1.console.aws.amazon.com/iam/home
 }
 ```
 
+
+
+b. Click **Next: Tags** and then **Next: Review**.
+
+c. In the **Review policy** screen set the **Name** field to `region-health-lambda-policy`. Finally, click **Create policy**
+
+![Create IAM policy 2 ](/Operations/300_Health_Aware_CICD_Pipelines/Images/iam-policy-2.png)
+
 b. In the [IAM Roles Console](https://us-east-1.console.aws.amazon.com/iamv2/home?region=ap-southeast-2#/roles/create?step=selectEntities), create a new role with the following specifications and then click next:
 
 * **Trusted entity type**: AWS Service
@@ -63,7 +73,13 @@ b. In the [IAM Roles Console](https://us-east-1.console.aws.amazon.com/iamv2/hom
 
 ![Create IAM role ](/Operations/300_Health_Aware_CICD_Pipelines/Images/iam-role-step1.png)
 
-c. In the "Add permissions" step, select the policy that you created in step a. Finally, give your Role a name and click **"Create role"**
+c. In the "Add permissions" step, select the policy that you created in step a and click **Next**. 
+
+![Create IAM role and attached permissions ](/Operations/300_Health_Aware_CICD_Pipelines/Images/iam-role-step2.png)
+
+d. Finally, set the **Role Name** field to `region-health-lambda-role` and click **"Create role"**
+
+![Create IAM role and set the Role Name ](/Operations/300_Health_Aware_CICD_Pipelines/Images/iam-role-step3.png)
 
 #### 1.2. Create the Lambda function
 
@@ -72,17 +88,19 @@ In this section, you will create a new Lambda function that queries the AWS Heal
 In the [AWS Lambda console](https://ap-southeast-2.console.aws.amazon.com/lambda/home?region=ap-southeast-2#/create/function), author a new function **"from scratch"** with the following options:
 
 * **Function name**: `region-health-evaluation`
-* **Runtime**: `Python 3.7`
+* **Runtime**: `Python 3.9`
 * **Architecture**: `x86_64`
 * **Permissions**: select the "Use an existing role" option and pick the role created in step 1.1.
 
 and then click **"Create function"**
 
+![Create a Lambda Function ](/Operations/300_Health_Aware_CICD_Pipelines/Images/lambda-create-step01.png)
+
 #### 1.3. Upload the Lambda code
 
 In this section, you'll upload the Python code package to the newly created Lambda function and understand how it works, and interacts with the surrounding dependencies. 
 
-a. To download the Lambda Package, click [here](http://aws.amazon.com).
+a. To download the Lambda Package, click [here](/Operations/300_Health_Aware_CICD_Pipelines/Code/function-validate-aws-health.zip).
 b. Click **"Upload from"** a **".zip file"** in the Lambda function, `region-health-evaluation` console. 
 
 ![Upload a the Lambda package ](/Operations/300_Health_Aware_CICD_Pipelines/Images/lambda-upload.png)
