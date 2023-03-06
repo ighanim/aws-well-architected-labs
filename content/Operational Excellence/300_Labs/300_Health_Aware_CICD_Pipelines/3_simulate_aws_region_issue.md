@@ -24,7 +24,7 @@ To simulate a successful health evaluation, go to the CodePipeline console and c
 ![CodePipeline release change ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-release-change.png)
 
 
-If the workflow operated as designed, "Source", "evaluate-region-health" and "Deploy" stages will be marked as "succeeded". In addition to that, the object `file-to-edit` will be now copied into the same S3 bucket under the `/output` prefix.
+If the workflow operated as designed, "Source", "evaluate-region-health" and "Deploy" stages will be marked as "succeeded". In addition to that, the object `health-demo-file.txt` will be now copied into the same S3 bucket under the `/output` prefix.
 
 ![CodePipeline release change ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-deployment-complete-with-lambda.png)
 

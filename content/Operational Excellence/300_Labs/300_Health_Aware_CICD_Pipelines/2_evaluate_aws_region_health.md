@@ -101,6 +101,7 @@ and then click **"Create function"**
 In this section, you'll upload the Python code package to the newly created Lambda function and understand how it works, and interacts with the surrounding dependencies. 
 
 a. To download the Lambda Package, click [here](/Operations/300_Health_Aware_CICD_Pipelines/Code/function-validate-aws-health.zip).
+
 b. Click **"Upload from"** a **".zip file"** in the Lambda function, `region-health-evaluation` console. 
 
 ![Upload a the Lambda package ](/Operations/300_Health_Aware_CICD_Pipelines/Images/lambda-upload.png)
@@ -109,7 +110,7 @@ c. Select the .zip package downloaded in step a, and then click **"Save"**
 
 Now, your Python code is uploaded to the Lambda function and ready for use.
 
-#### 1.4. Understandnig the evaluation code
+#### 1.4. Understanding the evaluation code
 
 The Lambda function evaluates whether or not a running AWS Health event may impact the deployment. In this case, the following criteria must be met to consider it as safe to deploy:
 
@@ -125,26 +126,40 @@ The Python code is available on [GitHub](https://github.com/aws-samples/building
 
 ## 2. Integrate CodePipeline and Lambda
 
-In this step, you will create a new stage in the CodePipeline workflow. The stage has a single action that calls the Lambda function to evalaute the region's health. The CodePipeline workflow execution is block untill it receives a callback from the Lambda function indicating either success or failure of the health check. 
+In this step, you will create a new stage in the CodePipeline workflow. The stage has a single action that calls the Lambda function to evaluate the region's health. The CodePipeline workflow execution is blocked until it receives a callback from the Lambda function indicating either success or failure of the health check. 
 
-a. In the AWS CodePipeline console, select the previously deployed workflow `health-aware-pipeline-HealthPipelineDemo-<RANDOM_NUMBER>`
+a. In the AWS CodePipeline console, select the previously deployed workflow `health-aware-pipeline`
 
 b. To Edit the workflow, click on the **"Edit"** button. 
 
-![Edit CodePipeline workflow ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-edit.png)
+![Edit CodePipeline workflow ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-edit-pipeline.png)
 
-c. Click the **"Add stage"** button between the **"Source"** and **"Deploy"** steps. Name the new stage `evaluate-region-health` and then save. 
+c. Click the **"Add stage"** button between the **"Source"** and **"Deploy"** steps. 
 
-d. In the newly added stage, click **"Add action group"** and fill in the following option values:
+![CodePipeline add stage ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-add-stage.png)
+
+d. Name the new stage `evaluate-region-health` and then save. 
+
+![CodePipeline stage name ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-stage-name.png)
+
+e. In the newly added stage, click **"Add action group"** and fill in the following option values:
+
+![CodePipeline add action group ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-add-action-group.png)
 
 * **Action name**: `lambda-health-check`
 * **Action provider**: Invoke/AWS Lambda
 * **Region**: Asia Pacific (Sydney)
-* **Input artifacts**: `file-to-edit`
+* **Input artifacts**: `health-demo-file`
 * **Function name**: `region-health-evaluation`
 * **User parameters**: `ap-southeast-2`
 
-Click **"Save"** to finalise. 
+Click **"Done"** to save. 
+
+![CodePipeline edit action ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-edit-action.png)
+
+f. Now, click **"Done"** and then **"Save"** to finalise. 
+
+![CodePipeline edit final ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-edit-final.png)
 
 ## Congratulations! 
 

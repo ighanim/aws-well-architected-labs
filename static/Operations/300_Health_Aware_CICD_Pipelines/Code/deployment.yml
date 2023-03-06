@@ -88,7 +88,7 @@ Resources:
             ],
             "Version": "2012-10-17"
             }   
-      RoleName: codepipeline-execution-role-health-pipeline-demo
+      RoleName: health-aware-pipeline-role
       Tags: 
         - Key: service
           Value: "HealthPipelineDemo"
@@ -96,7 +96,7 @@ Resources:
   HealthPipelineDemo:
     Type: AWS::CodePipeline::Pipeline
     Properties: 
-      Name: health-aware-cicd-pipelines-lab
+      Name: health-aware-pipeline
       RoleArn: !GetAtt PipelineExecutionRole.Arn
       ArtifactStore:
         Type: S3
@@ -114,39 +114,9 @@ Resources:
           Configuration:
             PollForSourceChanges: 'false'
             S3Bucket: !Ref s3BucketHealthDemo
-            S3ObjectKey: file-to-edit
+            S3ObjectKey: health-demo-file.txt
           OutputArtifacts:
-          - Name: file-to-edit
-          InputArtifacts: []
-          Region: ap-southeast-2
-      - Name: aws-health-check
-        Actions:
-        - Name: any-active-incident
-          ActionTypeId:
-            Category: Invoke
-            Owner: AWS
-            Provider: Lambda
-            Version: '1'
-          RunOrder: 1
-          Configuration:
-            FunctionName: service-validate-aws-health
-            UserParameters: ap-southeast-2,us-east-1
-          OutputArtifacts:
-          - Name: awsHealthOutputArtifact
-          InputArtifacts:
-          - Name: file-to-edit
-          Region: ap-southeast-2
-      - Name: manual-approval
-        Actions:
-        - Name: proceed-with-deployment
-          ActionTypeId:
-            Category: Approval
-            Owner: AWS
-            Provider: Manual
-            Version: '1'
-          RunOrder: 1
-          Configuration: {}
-          OutputArtifacts: []
+          - Name: health-demo-file
           InputArtifacts: []
           Region: ap-southeast-2
       - Name: Deploy
@@ -161,8 +131,8 @@ Resources:
           Configuration:
             BucketName: !Ref s3BucketHealthDemo
             Extract: 'false'
-            ObjectKey: output/file-to-edit
+            ObjectKey: output/health-demo-file.txt
           OutputArtifacts: []
           InputArtifacts:
-          - Name: file-to-edit
+          - Name: health-demo-file
           Region: ap-southeast-2
