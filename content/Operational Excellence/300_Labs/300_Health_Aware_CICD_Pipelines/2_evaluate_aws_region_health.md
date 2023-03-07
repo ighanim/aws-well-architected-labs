@@ -66,18 +66,18 @@ c. In the **Review policy** screen set the **Name** field to `region-health-lamb
 
 ![Create IAM policy 2 ](/Operations/300_Health_Aware_CICD_Pipelines/Images/iam-policy-2.png)
 
-b. In the [IAM Roles Console](https://us-east-1.console.aws.amazon.com/iamv2/home?region=ap-southeast-2#/roles/create?step=selectEntities), create a new role with the following specifications and then click next:
+d. In the [IAM Roles Console](https://us-east-1.console.aws.amazon.com/iamv2/home?region=ap-southeast-2#/roles/create?step=selectEntities), create a new role with the following specifications and then click next:
 
 * **Trusted entity type**: AWS Service
 * **Use case**: Lambda
 
 ![Create IAM role ](/Operations/300_Health_Aware_CICD_Pipelines/Images/iam-role-step1.png)
 
-c. In the "Add permissions" step, select the policy that you created in step a and click **Next**. 
+e. In the "Add permissions" step, select the policy that you created in step a and click **Next**. 
 
 ![Create IAM role and attached permissions ](/Operations/300_Health_Aware_CICD_Pipelines/Images/iam-role-step2.png)
 
-d. Finally, set the **Role Name** field to `region-health-lambda-role` and click **"Create role"**
+f. Finally, set the **Role Name** field to `region-health-lambda-role` and click **"Create role"**
 
 ![Create IAM role and set the Role Name ](/Operations/300_Health_Aware_CICD_Pipelines/Images/iam-role-step3.png)
 
@@ -114,7 +114,7 @@ Now, your Python code is uploaded to the Lambda function and ready for use.
 
 The Lambda function evaluates whether or not a running AWS Health event may impact the deployment. In this case, the following criteria must be met to consider it as safe to deploy:
 
-* Deployment will take place in the Sydney Region and accordingly the Lambda function will filter on the `ap-southeast-2` Region.
+* Deployment will take place in the Sydney Region and accordingly the Lambda function will filter on the `ap-southeast-2` Region. The Lambda function expects the region parameter to be passed from the AWS Codepipeline pipeline. If the parameter is missing, the default is `us-east-1`.
 * A closed event is irrelevant. The Lambda function will filter events with only the open status.
 * AWS Health API can return different event types that may not be relevant, such as: Scheduled Maintenance, and Account and Billing notifications. The Lambda function will filter only “Issue” type events.
 
@@ -157,9 +157,13 @@ Click **"Done"** to save.
 
 ![CodePipeline edit action ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-edit-action.png)
 
-f. Now, click **"Done"** and then **"Save"** to finalise. 
+f. To finalise, click the **"Done"** button in the in the `evaluate-region-health` section. Next, click the **"Save"** button in the `health-aware-pipeline` section. 
 
 ![CodePipeline edit final ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-edit-final.png)
+
+g. A pop-up window will show informing you with further implicit changes related to AWS CloudWatch events and AWS CloudTrail, click **"Save"**.
+
+![CodePipeline edit final ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-save-pipeline-changes.png)
 
 ## Congratulations! 
 

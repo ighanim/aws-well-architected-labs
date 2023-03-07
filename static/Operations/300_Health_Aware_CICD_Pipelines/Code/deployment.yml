@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "CloudFormation template that deploys necessary infrastructure for Lab01"
+Description: "CloudFormation template that deploys necessary infrastructure for the Operational Excellence Well Architected lab: 300 - Building health aware CI/CD pipelines."
 
 Resources:
 

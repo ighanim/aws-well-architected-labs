@@ -27,7 +27,7 @@ The CodePipeline flow consists of three steps:
 
 In this step you will provision a [CloudFormation](https://aws.amazon.com/cloudformation/) stack that builds the AWS CodePipeline workflow as well as an empty S3 bucket. In this lab, we will deploy infrastructure in the Sydney region (`ap-southeast-2`).
 
-1. Click on the link below to deploy the stack. This will take you to the CloudFormation console in your account. Use `health-aware-pipeline` as the stack name, and take the default values for all options (estimated deployment time is 2 minutes):
+1. Click on the link below to deploy the stack. This will take you to the CloudFormation console in your account. Use `health-aware-pipeline` as the stack name, and **keep the default values for all options** (estimated deployment time is 2 minutes):
 
 [Deploy CloudFormation template in ap-southeast-2](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/create/review?stackName=health-aware-pipeline&templateURL=https://aws-walab-health-aware-cicd-pipelines-2023.s3.ap-southeast-2.amazonaws.com/deployment.yml)
 
@@ -69,7 +69,7 @@ If the workflow operated as designed, the "Deploy" stage will be marked as "succ
 ![CodePipeline deployment complete ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-deployment-complete.png)
 
 {{% notice note %}}
-The pipeline expects a source file with the name `health-demo-file.txt` to be available in the source bucket. If the file doesn't exist, pipeline execution will fail.
+The pipeline expects a source file with the name `health-demo-file.txt` to be available in the source bucket. If the file doesn't exist, pipeline execution will fail. Also, it is expected that AWS CodePipeline creates input and output artefacts in the same S3 bucket for the pipeline to operate correctly. 
 {{% /notice %}}
 
 ## Congratulations! 
