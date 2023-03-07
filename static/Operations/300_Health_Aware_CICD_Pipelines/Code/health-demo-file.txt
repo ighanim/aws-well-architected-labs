@@ -1,3 +1,1 @@
 AWS Well Architected Labs, 300, Building Health Aware CI/CD pipelines
-
-This file is NOT edited yet. 

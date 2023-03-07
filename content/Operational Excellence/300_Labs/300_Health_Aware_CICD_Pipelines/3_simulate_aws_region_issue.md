@@ -30,7 +30,7 @@ If the workflow operated as designed, "Source", "evaluate-region-health" and "De
 
 ### 2. Simulate a failed AWS Region Health check
 
-To simulate a failed health evaluation, you will introduce a modification to `source_code.py` in the Lambda Code source editor. Replace the lines from 35 to 42 with the following:
+To simulate a failed health evaluation, you will introduce a modification to `lambda_function.py` in the Lambda Code source editor. Replace the lines from 35 to 42 with the following:
 
 ```
     job = event["CodePipeline.job"]["id"]
