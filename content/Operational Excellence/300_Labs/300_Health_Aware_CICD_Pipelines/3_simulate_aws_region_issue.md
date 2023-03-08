@@ -30,7 +30,7 @@ If the workflow operated as designed, "Source", "evaluate-region-health" and "De
 
 ### 2. Simulate a failed AWS Region Health check
 
-To simulate a failed health evaluation, you will introduce a modification to `lambda_function.py` in the Lambda Code source editor. Replace the lines from 35 to 42 with the following:
+To simulate a failed health evaluation, you will introduce a modification to `lambda_function.py` in the Lambda Code source editor. Replace the lines from 35 to 41 with the following and click the **“Deploy”** button to update the Lambda function:
 
 ```
     job = event["CodePipeline.job"]["id"]
@@ -54,14 +54,13 @@ If the workflow operated as designed, "Source" stage will be marked as succeeded
 
 ![CodePipeline failed execution ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-deployment-failed-with-lambda.png)
 
-Now, let's revert the Lambda to the original state; simulating that the previously running health event is now cleared. In `source_code.py`, replace the lines from 35 to 43 with the following and click **"Deploy"**:
+Now, let's revert the Lambda to the original state; simulating that the previously running health event is now cleared. In `lambda_function.py`, replace the lines from 35 to 43 with the following and click **"Deploy"**:
 
 ```
     job = event["CodePipeline.job"]["id"]
     if(response["events"] == []):
         incidentInProgress = False
         code_pipeline.put_job_success_result(jobId=job)
-        'Incident In Progress', 'type': 'JobFailed'})
     else:
         incidentInProgress = True
         code_pipeline.put_job_failure_result(jobId=job, failureDetails={'message': 'Incident In Progress', 'type': 'JobFailed'})

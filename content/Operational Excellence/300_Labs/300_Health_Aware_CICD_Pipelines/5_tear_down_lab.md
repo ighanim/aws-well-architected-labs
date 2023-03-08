@@ -14,7 +14,7 @@ The following instructions will remove the resources you've created in this lab.
 **Note:** In order to be able to delete the CloudFormation stack in step 3, the S3 bucket must be emptied. 
 {{% /notice %}}
 
-Go to the [S3 console](https://s3.console.aws.amazon.com/s3/buckets?region=ap-southeast-2&region=ap-southeast-2) and select the bucket `health-aware-pipeline-s3buckethealthdemo-<RANDOM_NUMBER>`. Now, select all objects and the click on **Delete**.
+Go to the [S3 console](https://s3.console.aws.amazon.com/s3/buckets?region=ap-southeast-2&region=ap-southeast-2) and select the bucket `<STACK_NAME>-s3buckethealthdemo-<RANDOM_NUMBER>`. Now, select all the objects and then click on **Delete**.
 
 ### 2. Delete the CloudFormation stack
 

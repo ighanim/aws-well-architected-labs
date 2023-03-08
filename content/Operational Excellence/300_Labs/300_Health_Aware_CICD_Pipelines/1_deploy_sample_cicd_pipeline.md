@@ -58,8 +58,6 @@ To verify that the deployment in step 1 is valid, you will have to create a samp
 
 ### 3. Test the AWS CodePipeline workflow
 
-In this step, we will validate a successful pipeline execution. Go to the [AWS CodePipeline console](https://ap-southeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines?region=ap-southeast-2), select the health aware workflow you just created and click the “Release Change” button, then click “Release” when prompted.
-
 In this step, we will validate a successful pipeline execution. Go to the [AWS CodePipeline console](https://ap-southeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines?region=ap-southeast-2), select the workflow you just created and click the “Release Change” button, then click “Release” when prompted.
 
 ![CodePipeline release change ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-release-change.png)

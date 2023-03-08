@@ -24,7 +24,7 @@ Using the AWS Console, you will create an AWS Lambda function as well as a Lambd
 
 First, create an IAM Role that allows the Lambda function to access the AWS Health API, callback CodePipeline and publish CloudWatch logs. 
 
-a. In the [IAM Policy Console](https://us-east-1.console.aws.amazon.com/iam/home#/policies$new?step=edit), click on the **"JSON"** tab and then copy the following policy document:
+a. In the [IAM Policy Console](https://us-east-1.console.aws.amazon.com/iam/home#/policies$new?step=edit), click on the **"JSON"** tab and then replace all text with the following policy document:
 
 ![Create IAM policy ](/Operations/300_Health_Aware_CICD_Pipelines/Images/iam-policy-1.png)
 
