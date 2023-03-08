@@ -54,7 +54,7 @@ If the workflow operated as designed, "Source" stage will be marked as succeeded
 
 ![CodePipeline failed execution ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-deployment-failed-with-lambda.png)
 
-Now, let's revert the Lambda to the original state; simulating that the previously running health event is now cleared. In `lambda_function.py`, replace the lines from 35 to 43 with the following and click **"Deploy"**:
+Now, let's revert the Lambda function to its original state in the [AWS Lambda console](https://ap-southeast-2.console.aws.amazon.com/lambda/home?region=ap-southeast-2#/); simulating that the previously running health event is now cleared. In the file `lambda_function.py`, replace the lines from 35 to 43 with the following and click **"Deploy"**:
 
 ```
     job = event["CodePipeline.job"]["id"]
