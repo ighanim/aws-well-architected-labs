@@ -8,6 +8,7 @@ pre: "<b>3. </b>"
 
 In this section, you will simulate a successful and a failed AWS Region health evaluation. 
 
+**[Review]: Would it be handy to use CFN to create both lambda functions, and let users to edit the existing codepipeline to choose either of the function, to simulate "normal" and "service event" scenario?**
 #### Action items in this section:
 
 1. Test the AWS CodePipeline workflow to simulate a successful AWS Region Health check.
@@ -30,6 +31,8 @@ If the workflow operated as designed, "Source", "evaluate-region-health" and "De
 
 ### 2. Simulate a failed AWS Region Health check
 
+**[Review]: Suggest to give a console link to users to navigate to lambda service.**
+**[Review]: Also can you split the following actions into separate bullet, to make a smaller granularity for the action scope? e.g. 1. change lambda; 2. retry; ...**
 To simulate a failed health evaluation, you will introduce a modification to `lambda_function.py` in the Lambda Code source editor. Replace the lines from 35 to 41 with the following and click the **“Deploy”** button to update the Lambda function:
 
 ```

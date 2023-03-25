@@ -24,6 +24,8 @@ Using the AWS Console, you will create an AWS Lambda function as well as a Lambd
 
 First, create an IAM Role that allows the Lambda function to access the AWS Health API, callback CodePipeline and publish CloudWatch logs. 
 
+**[Review]Is it better to use the CFN to automatically create this IAM policy?**
+**[Review] suggest to standadise the step index, and use numberic index (1, 2, ...) instead of characters (a/b/c...) so to align with section 1.**
 a. In the [IAM Policy Console](https://us-east-1.console.aws.amazon.com/iam/home#/policies$new?step=edit), click on the **"JSON"** tab and then replace all text with the following policy document:
 
 ![Create IAM policy ](/Operations/300_Health_Aware_CICD_Pipelines/Images/iam-policy-1.png)
@@ -66,6 +68,7 @@ c. In the **Review policy** screen set the **Name** field to `region-health-lamb
 
 ![Create IAM policy 2 ](/Operations/300_Health_Aware_CICD_Pipelines/Images/iam-policy-2.png)
 
+**[Review]: Would it be easier to use CFN to create this role, so customer can just choose it via console?**
 d. In the [IAM Roles Console](https://us-east-1.console.aws.amazon.com/iamv2/home?region=ap-southeast-2#/roles/create?step=selectEntities), create a new role with the following specifications and then click next:
 
 * **Trusted entity type**: AWS Service
@@ -73,6 +76,7 @@ d. In the [IAM Roles Console](https://us-east-1.console.aws.amazon.com/iamv2/hom
 
 ![Create IAM role ](/Operations/300_Health_Aware_CICD_Pipelines/Images/iam-role-step1.png)
 
+**[Review]: Suggest to list the policy name here as well**
 e. In the "Add permissions" step, select the policy that you created in step a and click **Next**. 
 
 ![Create IAM role and attached permissions ](/Operations/300_Health_Aware_CICD_Pipelines/Images/iam-role-step2.png)
@@ -90,6 +94,7 @@ In the [AWS Lambda console](https://ap-southeast-2.console.aws.amazon.com/lambda
 * **Function name**: `region-health-evaluation`
 * **Runtime**: `Python 3.9`
 * **Architecture**: `x86_64`
+**[Review]: Suggest to list the role name here as well**
 * **Permissions**: select the "Use an existing role" option and pick the role created in step 1.1.
 
 and then click **"Create function"**
@@ -112,6 +117,7 @@ Now, your Python code is uploaded to the Lambda function and ready for use.
 
 #### 1.4. Understanding the evaluation code
 
+**[Review]: Suggest to highlight this is just an example for reference, such as the region coverage.**
 The Lambda function evaluates whether or not a running AWS Health event may impact the deployment. In this case, the following criteria must be met to consider it as safe to deploy:
 
 * Deployment will take place in the Sydney Region and accordingly the Lambda function will filter on the `ap-southeast-2` Region. The Lambda function expects the region parameter to be passed from the AWS Codepipeline pipeline. If the parameter is missing, the default is `us-east-1`.
@@ -128,6 +134,7 @@ The Python code is available on [GitHub](https://github.com/aws-samples/building
 
 In this step, you will create a new stage in the CodePipeline workflow. The stage has a single action that calls the Lambda function to evaluate the region's health. The CodePipeline workflow execution is blocked until it receives a callback from the Lambda function indicating either success or failure of the health check. 
 
+**[Review]: Can you share the same link to users**
 a. In the AWS CodePipeline console, select the previously deployed workflow `health-aware-pipeline`
 
 b. To Edit the workflow, click on the **"Edit"** button. 
@@ -147,6 +154,7 @@ e. In the newly added stage, click **"Add action group"** and fill in the follow
 ![CodePipeline add action group ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-add-action-group.png)
 
 * **Action name**: `lambda-health-check`
+**[Review]: There's option for 'AWS Lambda' without 'Invoke'**
 * **Action provider**: Invoke/AWS Lambda
 * **Region**: Asia Pacific (Sydney)
 * **Input artifacts**: `health-demo-file`
