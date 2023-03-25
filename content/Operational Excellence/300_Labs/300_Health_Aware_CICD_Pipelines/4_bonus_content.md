@@ -8,12 +8,14 @@ pre: "<b>4. </b>"
 
 In this section, we will integrate the AWS CodePipeline workflow with a ChatOps channel such as Slack. When a pipeline execution is paused, you need to notify your DevOps teams and provide sufficient information on why it was paused. 
 
+**[Review]: Could you itemise the steps as below, so to let users easy to follow?**
 #### Actions items in this section:
 
 1. You will create a notification rule in CodePipeline.
 
 ### 1. Create a notification rule
 
+**[Review]: Suggest to give it an example name for users to copy/paste**
 In the AWS CodePipeline console, select **"Settings"** from the left menu and then select **"Notifications"** tab from the top menu. To create a new rule, click on the **"Create notification rule"** button. 
 
 ![CodePipeline settings ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-settings.png)

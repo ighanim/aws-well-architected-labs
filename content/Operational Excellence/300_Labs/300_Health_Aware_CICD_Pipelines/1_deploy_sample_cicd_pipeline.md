@@ -29,7 +29,7 @@ In this step you will provision a [CloudFormation](https://aws.amazon.com/cloudf
 
 1. Click on the link below to deploy the stack. This will take you to the CloudFormation console in your account. Use `health-aware-pipeline` as the stack name, and **keep the default values for all options** (estimated deployment time is 2 minutes):
 
-[Deploy CloudFormation template in ap-southeast-2](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/create/review?stackName=health-aware-pipeline&templateURL=https://aws-org-health-dashboard-2021.s3.ap-southeast-2.amazonaws.com/deployment.yml)
+**[Review]Can you adjust the indentation of this URL, and also provide a screenshot to show the CFN implementation?**  [Deploy CloudFormation template in ap-southeast-2](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/create/review?stackName=health-aware-pipeline&templateURL=https://aws-org-health-dashboard-2021.s3.ap-southeast-2.amazonaws.com/deployment.yml)
 
 2. Once the template is deployed, wait until the CloudFormation stack reaches the **CREATE_COMPLETE** state.
 
@@ -60,6 +60,7 @@ To verify that the deployment in step 1 is valid, you will have to create a samp
 
 In this step, we will validate a successful pipeline execution. Go to the [AWS CodePipeline console](https://ap-southeast-2.console.aws.amazon.com/codesuite/codepipeline/pipelines?region=ap-southeast-2), select the workflow you just created and click the “Release Change” button, then click “Release” when prompted.
 
+**[Review]When users click this link, they will see a failure initially. Can you give some clarifications to the user when the failure accurs? - e.g. it's as expected, because the file hasn't bee uploaded...**
 ![CodePipeline release change ](/Operations/300_Health_Aware_CICD_Pipelines/Images/codepipeline-release-change.png)
 
 If the workflow operated as designed, the "Deploy" stage will be marked as "succeeded". In addition to that, the object `health-demo-file.txt` will be now copied into the same S3 bucket under the `/output` prefix. 

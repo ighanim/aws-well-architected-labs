@@ -45,7 +45,8 @@ In this lab, I will walk you through how to embed AWS Health API insights into y
 > This lab requires access to the AWS Health API which is exclusive for [Business Support](https://aws.amazon.com/premiumsupport/plans/business/), [Enterprise On-Ramp Support](https://aws.amazon.com/premiumsupport/plans/enterprise-onramp/) and [Enterprise Support](https://aws.amazon.com/premiumsupport/plans/enterprise/) customers. For more information, see [AWS Support Plans](https://aws.amazon.com/premiumsupport/plans/)
 
 * An [AWS account](https://portal.aws.amazon.com/gp/aws/developer/registration/index.html) that you are able to use for testing. The account should not be used for production purposes.  
-* An [IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html) in your AWS account with full access to [CloudFormation,](https://aws.amazon.com/cloudformation/) [Amazon Lambda,](https://aws.amazon.com/lambda/)[AWS CodePipeline,](https://aws.amazon.com/codepipeline/) [AWS Identity and Access Management (IAM),](https://aws.amazon.com/iam/) 
+**[Review] suggest to add the IAM Role as well:**
+* An [IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html) or an [IAR role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in your AWS account with full access to [CloudFormation,](https://aws.amazon.com/cloudformation/) [Amazon Lambda,](https://aws.amazon.com/lambda/)[AWS CodePipeline,](https://aws.amazon.com/codepipeline/) [AWS Identity and Access Management (IAM),](https://aws.amazon.com/iam/) 
 
 ## Costs
 
